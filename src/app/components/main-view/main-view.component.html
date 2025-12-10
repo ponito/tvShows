@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row mt-3">
+    <h1>TV-Serien</h1>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-7 mb-3">
+      <app-show-list [shows$]="shows$" (selectedShow)="onSelectedShow($event)"></app-show-list>
+      <app-show-form/>
+    </div>
+    <div class="col-md-5">
+      @if(isShowSelected) {
+        <app-show-details
+          [detailShow$]="selectedShow$"
+          [errorMessage$]="errorMessage$"
+        />
+      }
+    </div>
+  </div>
+</div>

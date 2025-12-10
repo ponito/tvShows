@@ -1,0 +1,42 @@
+<form name="newShowForm" #newShowForm="ngForm">
+  <h2>Serie hinzufügen:</h2>
+  <div class="mb-2">
+    <label for="newShowID">ID:</label>
+    <input class="form-control"
+           id="newShowID"
+           name="newShowID"
+           type="text"
+           required
+           #id="ngModel"
+           [class.is-invalid]="id.invalid && id.touched"
+           pattern="^\d+$"
+           placeholder="Hier die ID der Serie eingeben!"
+           [(ngModel)]="show.id"/>
+    <small class="text-danger"
+           [class.d-none]="id.valid || id.untouched">
+      Bitte geben Sie eine Zahl ein
+    </small>
+  </div>
+  <div class="mb-2">
+    <label for="newShowTitle">Titel:</label>
+    <input class="form-control"
+           id="newShowTitle"
+           name="newShowTitle"
+           required
+           #title="ngModel"
+           [class.is-invalid]="title.touched && !title.value"
+           type="text"
+           placeholder="Hier den Titel der Serie eingeben!"
+           [(ngModel)]="show.title"/>
+    <small class="text-danger"
+           [class.d-none]="title.value || title.untouched">
+      Bitte geben Sie einen Serien-Titel ein!
+    </small>
+  </div>
+  <button type="submit"
+          class="btn btn-primary"
+          (click)="save(); newShowForm.resetForm()"
+          [disabled]="!newShowForm.valid">
+    Absenden
+  </button>
+</form>
