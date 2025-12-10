@@ -1,12 +1,11 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, signal, Signal, WritableSignal} from '@angular/core';
 import {ShowList} from '../show-list/show-list.component';
 import {Show} from '../../model/show';
 import {DataService} from '../../services/data.service';
 import {ShowForm} from '../show-form/show-form';
-import {BehaviorSubject, catchError, EMPTY, Subject} from 'rxjs';
 import {ApiService} from '../../services/api-service';
 import {ShowDetails} from '../show-details/show-details';
-import {Observable} from 'rxjs';
+import {catchError, EMPTY} from 'rxjs';
 
 @Component({
   selector: 'app-main-view',
@@ -16,28 +15,28 @@ import {Observable} from 'rxjs';
 export class MainView {
   private dataService: DataService = inject(DataService);
   private apiService: ApiService = inject(ApiService);
-  selectedShow$: BehaviorSubject<Show>;
-  errorMessage$: Subject<string>;
+  selectedShow: WritableSignal<Show>;
+  errorMessage: WritableSignal<string>;
   isShowSelected = false;
 
-  get shows$(): Observable<Show[]> {
-    return this.dataService.shows$;
+  get shows(): Signal<Show[]> {
+    return this.dataService.showsSignal;
   }
 
   constructor() {
-    this.selectedShow$ = new BehaviorSubject<Show>(null);
-    this.errorMessage$ = new Subject<string>();
+    this.selectedShow = signal<Show>(null);
+    this.errorMessage = signal<string>('');
   }
 
   onSelectedShow(show: Show) {
     this.apiService.getDetailShow(show.title)
       .pipe(catchError((err) => {
-        this.errorMessage$.next(err.message);
-        this.selectedShow$.next(null);
+        this.errorMessage.set(err.message);
+        this.selectedShow.set(null);
         return EMPTY;
       }))
       .subscribe((s) => {
-      this.selectedShow$.next(s);
+      this.selectedShow.set(s);
     });
     this.isShowSelected = true;
   }

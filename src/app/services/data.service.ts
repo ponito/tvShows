@@ -1,6 +1,7 @@
 import { Show } from "../model/show";
-import {Injectable} from '@angular/core';
+import {Injectable, Signal} from '@angular/core';
 import {Observable} from 'rxjs';
+import {toSignal} from '@angular/core/rxjs-interop';
 import {
   addDoc,
   collection,
@@ -17,12 +18,14 @@ import {
 })
 export class DataService {
   shows$: Observable<Show[]>;
+  showsSignal: Signal<Show[]>;
   private seriesCollection = 'table_show'
 
   constructor(private firestore: Firestore) {
     const showsRef = collection(this.firestore, this.seriesCollection);
     const showsQuery = query(showsRef, orderBy('id'));
     this.shows$ = collectionData(showsQuery, { idField: 'uid' }) as Observable<Show[]>;
+    this.showsSignal = toSignal(this.shows$);
   }
 
   saveShow(show: Show): void {

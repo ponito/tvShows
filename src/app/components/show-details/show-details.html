@@ -1,4 +1,4 @@
-@if(detailShow$ | async; as detailShow) {
+@if(detailShow(); as detailShow) {
   <div class="card">
     <img class="card-img-top" img-fluid src="{{detailShow.image}}">
     <div class="card-body">
@@ -7,7 +7,7 @@
     </div>
   </div>
 }
-@if(errorMessage$ | async; as errorMessage) {
+@else if(errorMessage(); as errorMessage) {
   <ng-container>
     <div class="alert alert-danger">
       {{errorMessage}}

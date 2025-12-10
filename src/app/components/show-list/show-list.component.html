@@ -8,7 +8,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (show of shows$ | async; track $index) {
+    @for (show of shows(); track $index) {
       @if(isToEdit(show)) {
         <td>
           <input
