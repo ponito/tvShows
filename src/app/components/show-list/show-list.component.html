@@ -5,6 +5,7 @@
       <th>Serientitel</th>
       <th>&nbsp;</th>
       <th>&nbsp;</th>
+      <th> </th>
     </tr>
   </thead>
   <tbody>
@@ -31,6 +32,9 @@
             save
           </button>
         </td>
+        <td>
+          <a [routerLink]="['/details', show.title]">Learn More</a>
+        </td>
       }
       @else{
         <tr>
@@ -38,6 +42,9 @@
           <td (click)="showDetails(show)">{{show.title}}</td>
           <td><button class="material-icons" (click)="edit(show)">edit</button></td>
           <td><button class="material-icons" (click)="delete(show)">delete</button></td>
+          <td>
+            <a [routerLink]="['/details', show.title]">Learn More</a>
+          </td>
         </tr>
       }
     }

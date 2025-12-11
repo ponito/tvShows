@@ -2,10 +2,11 @@ import {Component, inject, input, output} from '@angular/core';
 import {Show} from '../../model/show';
 import {DataService} from '../../services/data.service';
 import {FormsModule} from '@angular/forms';
+import {RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({
   selector:'app-show-list',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink, RouterOutlet],
   templateUrl:'show-list.component.html'
 })
 export class ShowList {

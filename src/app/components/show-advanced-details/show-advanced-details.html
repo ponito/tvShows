@@ -1,0 +1,19 @@
+@if(detailShow(); as detailShow) {
+  <div class="card">
+    <img class="card-img-top" img-fluid src="{{detailShow.image}}">
+    <div class="card-body">
+      <h4 class="card-title">{{detailShow.title}}</h4>
+      <p class="card-text" [innerHTML]="detailShow.summary"></p>
+    </div>
+  </div>
+}
+@else if(errorMessage(); as errorMessage) {
+  <ng-container>
+    <div class="alert alert-danger">
+      {{errorMessage}}
+    </div>
+  </ng-container>
+}
+@else {
+  <div>Einfach nur eine leere Seite mit dem Titel: {{ tvShowTitle }}!</div>
+}
